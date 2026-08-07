@@ -26,6 +26,7 @@ async function syncUserProfile(user: User): Promise<UserProfile> {
       email: user.email ?? '',
       displayName: user.displayName,
       photoURL: user.photoURL,
+      bio: null,
       role: 'user',
       _schemaVersion: 1,
     }

@@ -16,6 +16,7 @@ export interface UserProfile {
   email: string
   displayName: string | null
   photoURL: string | null
+  bio: string | null
   role: 'user'
   createdAt: Timestamp
   updatedAt: Timestamp

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getServerSession } from '@/actions/auth.actions'
+import { getBio, updateBioForm } from '@/actions/profile.actions'
 
 export const metadata: Metadata = {
   title: 'Profile',
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
 
 export default async function ProfilePage() {
   const session = await getServerSession()
+  const bio = await getBio()
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -20,6 +22,27 @@ export default async function ProfilePage() {
           <p className="text-xs font-medium tracking-wide text-zinc-400 uppercase">Email</p>
           <p className="mt-1 text-sm">{session?.email ?? '—'}</p>
         </div>
+
+        <form action={updateBioForm} className="space-y-2">
+          <label htmlFor="bio" className="text-xs font-medium tracking-wide text-zinc-400 uppercase">
+            Bio
+          </label>
+          <textarea
+            id="bio"
+            name="bio"
+            defaultValue={bio ?? ''}
+            maxLength={280}
+            rows={4}
+            placeholder="Tell us a little about yourself..."
+            className="w-full rounded-md border border-zinc-300 bg-transparent p-2 text-sm dark:border-zinc-700"
+          />
+          <button
+            type="submit"
+            className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          >
+            Save
+          </button>
+        </form>
       </div>
     </div>
   )
